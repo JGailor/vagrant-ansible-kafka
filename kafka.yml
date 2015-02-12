@@ -1,0 +1,5 @@
+---
+- hosts: kafka.*
+  roles:
+    - zookeeper
+    - kafka

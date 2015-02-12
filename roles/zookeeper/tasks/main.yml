@@ -1,0 +1,28 @@
+---
+- name: Install necessary packages
+  apt:  name={{item}} state=latest update_cache=yes
+  sudo: yes
+  with_items:
+    - openjdk-7-jre-headless
+
+- name: Download ZooKeeper {{zookeeper.version}}
+  get_url: url={{zookeeper.url}} dest={{zookeeper.tgz}} timeout=60
+
+- name: Create the remote directory for ZooKeeper
+  sudo: yes
+  file: path={{zookeeper.untar_to}} state=directory mode=0755
+
+- name: Unarchive ZooKeeper
+  sudo: yes
+  unarchive: copy=no src={{zookeeper.tgz}} dest={{zookeeper.untar_to}}
+
+- name: Symlink to the ZooKeeper version
+  sudo: yes
+  file: path={{zookeeper.symlink}} src={{zookeeper.symlink_to}} state=link
+
+- name: Create the ZooKeeper configuration
+  sudo: yes
+  template: src=usr/local/lib/zookeeper/conf/zoo.cfg.j2 dest={{zookeeper.symlink}}/conf/zoo.cfg
+  notify:
+    - stop zookeeper
+    - start zookeeper

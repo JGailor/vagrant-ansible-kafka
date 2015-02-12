@@ -1,0 +1,7 @@
+---
+- name: start kafka
+  sudo: yes
+  shell: "{{kafka.symlink}}/bin/kafka-server-start.sh {{kafka.symlink}}/config/server.properties &"
+  args:
+    chdir: "{{kafka.symlink}}"
+  register: command_start_kafka
