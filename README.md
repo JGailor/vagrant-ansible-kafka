@@ -1,6 +1,6 @@
 # Purpose
 
-A base setup for creating a running virtual machine using Vagrant and provisioning [Apache Kafka](http://kafka.apache.org/) on the VM using Ansible.
+A base setup for creating a running virtual machine using [Vagrant](https://www.vagrantup.com/) and provisioning [Apache Kafka](http://kafka.apache.org/) on the VM using Ansible.
 
 # Getting Started
 
